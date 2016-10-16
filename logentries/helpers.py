@@ -5,7 +5,7 @@ import re
 
 if sys.version < '3':
     # Python2.x imports
-    import Queue
+    from multiprocessing import Queue
     import codecs
 else:
     # Python 3.x imports
@@ -34,7 +34,7 @@ if sys.version < '3':
             return str(e)
 
     def create_queue(max_size):
-        return Queue.Queue(max_size)
+        return Queue(max_size)
 else:
     def to_unicode(ch):
         return ch
