@@ -201,16 +201,7 @@ class LogentriesHandler(logging.Handler):
         msg = self.format(record).rstrip('\n')
         msg = self.token + msg
 
-        try:
-            self._thread._queue.put_nowait(msg)
-        except:
-            # Queue is full, try to remove the oldest message and put again
-            try:
-                self._thread._queue.get_nowait()
-                self._thread._queue.put_nowait(msg)
-            except:
-                # Race condition, no need for any action here
-                pass
+        self._thread._queue.put_nowait(msg)
 
     def close(self):
         logging.Handler.close(self)
